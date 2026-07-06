@@ -1,50 +1,50 @@
 <?php
 
-$Data_String_CodeUnits_fromCharArray = function($a) {
+$fromCharArray = function($a) use (&$fromCharArray) {
     return implode("", $a);
 };
 
-$Data_String_CodeUnits_toCharArray = function($s) {
+$toCharArray = function($s) use (&$toCharArray) {
     if ($s === "") return [];
     return str_split($s);
 };
 
-$Data_String_CodeUnits_singleton = function($c) {
+$singleton = function($c) use (&$singleton) {
     return $c;
 };
 
-$Data_String_CodeUnits__charAt = function($just, $nothing = null, $i = null, $s = null) {
+$_charAt = function($just, $nothing = null, $i = null, $s = null) use (&$_charAt) {
     if (func_num_args() < 4) {
         $__args = func_get_args();
-        return function(...$more) use ($__args) {
-            global $Data_String_CodeUnits__charAt;
-            return $Data_String_CodeUnits__charAt(...array_merge($__args, $more));
+        return function(...$more) use ($__args, &$fromCharArray) {
+
+            return $_charAt(...array_merge($__args, $more));
         };
     }
     return ($i >= 0 && $i < strlen($s)) ? $just($s[$i]) : $nothing;
 };
 
-$Data_String_CodeUnits__toChar = function($just, $nothing = null, $s = null) {
+$_toChar = function($just, $nothing = null, $s = null) use (&$_toChar) {
     if (func_num_args() < 3) {
         $__args = func_get_args();
-        return function(...$more) use ($__args) {
-            global $Data_String_CodeUnits__toChar;
-            return $Data_String_CodeUnits__toChar(...array_merge($__args, $more));
+        return function(...$more) use ($__args, &$toCharArray) {
+
+            return $_toChar(...array_merge($__args, $more));
         };
     }
     return strlen($s) === 1 ? $just($s) : $nothing;
 };
 
-$Data_String_CodeUnits_length = function($s) {
+$length = function($s) use (&$length) {
     return strlen($s);
 };
 
-$Data_String_CodeUnits_countPrefix = function($p, $s = null) {
+$countPrefix = function($p, $s = null) use (&$countPrefix) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args) {
-            global $Data_String_CodeUnits_countPrefix;
-            return $Data_String_CodeUnits_countPrefix(...array_merge($__args, $more));
+        return function(...$more) use ($__args, &$singleton) {
+
+            return $countPrefix(...array_merge($__args, $more));
         };
     }
     $i = 0;
@@ -55,24 +55,24 @@ $Data_String_CodeUnits_countPrefix = function($p, $s = null) {
     return $i;
 };
 
-$Data_String_CodeUnits__indexOf = function($just, $nothing = null, $x = null, $s = null) {
+$_indexOf = function($just, $nothing = null, $x = null, $s = null) use (&$_indexOf) {
     if (func_num_args() < 4) {
         $__args = func_get_args();
-        return function(...$more) use ($__args) {
-            global $Data_String_CodeUnits__indexOf;
-            return $Data_String_CodeUnits__indexOf(...array_merge($__args, $more));
+        return function(...$more) use ($__args, &$_charAt) {
+
+            return $_indexOf(...array_merge($__args, $more));
         };
     }
     $i = strpos($s, $x);
     return $i === false ? $nothing : $just($i);
 };
 
-$Data_String_CodeUnits__indexOfStartingAt = function($just, $nothing = null, $x = null, $startAt = null, $s = null) {
+$_indexOfStartingAt = function($just, $nothing = null, $x = null, $startAt = null, $s = null) use (&$_indexOfStartingAt) {
     if (func_num_args() < 5) {
         $__args = func_get_args();
-        return function(...$more) use ($__args) {
-            global $Data_String_CodeUnits__indexOfStartingAt;
-            return $Data_String_CodeUnits__indexOfStartingAt(...array_merge($__args, $more));
+        return function(...$more) use ($__args, &$_toChar) {
+
+            return $_indexOfStartingAt(...array_merge($__args, $more));
         };
     }
     if ($startAt < 0 || $startAt > strlen($s)) return $nothing;
@@ -80,12 +80,12 @@ $Data_String_CodeUnits__indexOfStartingAt = function($just, $nothing = null, $x 
     return $i === false ? $nothing : $just($i);
 };
 
-$Data_String_CodeUnits__lastIndexOf = function($just, $nothing = null, $x = null, $s = null) {
+$_lastIndexOf = function($just, $nothing = null, $x = null, $s = null) use (&$_lastIndexOf) {
     if (func_num_args() < 4) {
         $__args = func_get_args();
-        return function(...$more) use ($__args) {
-            global $Data_String_CodeUnits__lastIndexOf;
-            return $Data_String_CodeUnits__lastIndexOf(...array_merge($__args, $more));
+        return function(...$more) use ($__args, &$length) {
+
+            return $_lastIndexOf(...array_merge($__args, $more));
         };
     }
     if ($x === "") {
@@ -95,12 +95,12 @@ $Data_String_CodeUnits__lastIndexOf = function($just, $nothing = null, $x = null
     return $i === false ? $nothing : $just($i);
 };
 
-$Data_String_CodeUnits__lastIndexOfStartingAt = function($just, $nothing = null, $x = null, $startAt = null, $s = null) {
+$_lastIndexOfStartingAt = function($just, $nothing = null, $x = null, $startAt = null, $s = null) use (&$_lastIndexOfStartingAt) {
     if (func_num_args() < 5) {
         $__args = func_get_args();
-        return function(...$more) use ($__args) {
-            global $Data_String_CodeUnits__lastIndexOfStartingAt;
-            return $Data_String_CodeUnits__lastIndexOfStartingAt(...array_merge($__args, $more));
+        return function(...$more) use ($__args, &$countPrefix) {
+
+            return $_lastIndexOfStartingAt(...array_merge($__args, $more));
         };
     }
     if ($x === "") return $just(min($startAt, strlen($s)));
@@ -117,34 +117,34 @@ $Data_String_CodeUnits__lastIndexOfStartingAt = function($just, $nothing = null,
     return $nothing;
 };
 
-$Data_String_CodeUnits_take = function($n, $s = null) {
+$take = function($n, $s = null) use (&$take) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args) {
-            global $Data_String_CodeUnits_take;
-            return $Data_String_CodeUnits_take(...array_merge($__args, $more));
+        return function(...$more) use ($__args, &$_indexOf) {
+
+            return $take(...array_merge($__args, $more));
         };
     }
     return substr($s, 0, $n);
 };
 
-$Data_String_CodeUnits_drop = function($n, $s = null) {
+$drop = function($n, $s = null) use (&$drop) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args) {
-            global $Data_String_CodeUnits_drop;
-            return $Data_String_CodeUnits_drop(...array_merge($__args, $more));
+        return function(...$more) use ($__args, &$_indexOfStartingAt) {
+
+            return $drop(...array_merge($__args, $more));
         };
     }
     return substr($s, $n);
 };
 
-$Data_String_CodeUnits_slice = function($b, $e = null, $s = null) {
+$slice = function($b, $e = null, $s = null) use (&$slice) {
     if (func_num_args() < 3) {
         $__args = func_get_args();
-        return function(...$more) use ($__args) {
-            global $Data_String_CodeUnits_slice;
-            return $Data_String_CodeUnits_slice(...array_merge($__args, $more));
+        return function(...$more) use ($__args, &$_lastIndexOf) {
+
+            return $slice(...array_merge($__args, $more));
         };
     }
     // JS slice with negative indices
@@ -157,12 +157,12 @@ $Data_String_CodeUnits_slice = function($b, $e = null, $s = null) {
     return substr($s, $b, $e - $b);
 };
 
-$Data_String_CodeUnits_splitAt = function($i, $s = null) {
+$splitAt = function($i, $s = null) use (&$splitAt) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args) {
-            global $Data_String_CodeUnits_splitAt;
-            return $Data_String_CodeUnits_splitAt(...array_merge($__args, $more));
+        return function(...$more) use ($__args, &$_lastIndexOfStartingAt) {
+
+            return $splitAt(...array_merge($__args, $more));
         };
     }
     return (object)[
@@ -170,3 +170,20 @@ $Data_String_CodeUnits_splitAt = function($i, $s = null) {
         "after" => substr($s, $i)
     ];
 };
+
+$exports['fromCharArray'] = $fromCharArray;
+$exports['toCharArray'] = $toCharArray;
+$exports['singleton'] = $singleton;
+$exports['_charAt'] = $_charAt;
+$exports['_toChar'] = $_toChar;
+$exports['length'] = $length;
+$exports['countPrefix'] = $countPrefix;
+$exports['_indexOf'] = $_indexOf;
+$exports['_indexOfStartingAt'] = $_indexOfStartingAt;
+$exports['_lastIndexOf'] = $_lastIndexOf;
+$exports['_lastIndexOfStartingAt'] = $_lastIndexOfStartingAt;
+$exports['take'] = $take;
+$exports['drop'] = $drop;
+$exports['slice'] = $slice;
+$exports['splitAt'] = $splitAt;
+return $exports;
