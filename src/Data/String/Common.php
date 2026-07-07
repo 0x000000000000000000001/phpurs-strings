@@ -67,7 +67,7 @@ $trim = function($s) use (&$trim) {
 $joinWith = function($s, $xs = null) use (&$joinWith) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args, &$toLower) {
+        return function(...$more) use ($__args, &$joinWith) {
 
             return $joinWith(...array_merge($__args, $more));
         };
