@@ -53,11 +53,11 @@ $split = function($sep, $s = null) use (&$split) {
 };
 
 $toLower = function($s) use (&$toLower) {
-    return strtolower($s);
+    return mb_strtolower($s, 'UTF-8');
 };
 
 $toUpper = function($s) use (&$toUpper) {
-    return strtoupper($s);
+    return mb_strtoupper($s, 'UTF-8');
 };
 
 $trim = function($s) use (&$trim) {
