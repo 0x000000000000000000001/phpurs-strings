@@ -14,22 +14,22 @@ $singleton = function($c) use (&$singleton) {
 };
 
 $_charAt = function($just, $nothing = null, $i = null, $s = null) use (&$_charAt) {
-    if (func_num_args() < 4) {
-        $__args = func_get_args();
+    if (\func_num_args() < 4) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_charAt) {
 
-            return $_charAt(...array_merge($__args, $more));
+            return $_charAt(...\array_merge($__args, $more));
         };
     }
     return ($i >= 0 && $i < strlen($s)) ? $just($s[$i]) : $nothing;
 };
 
 $_toChar = function($just, $nothing = null, $s = null) use (&$_toChar) {
-    if (func_num_args() < 3) {
-        $__args = func_get_args();
+    if (\func_num_args() < 3) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_toChar) {
 
-            return $_toChar(...array_merge($__args, $more));
+            return $_toChar(...\array_merge($__args, $more));
         };
     }
     return strlen($s) === 1 ? $just($s) : $nothing;
@@ -40,11 +40,11 @@ $length = function($s) use (&$length) {
 };
 
 $countPrefix = function($p, $s = null) use (&$countPrefix) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$countPrefix) {
 
-            return $countPrefix(...array_merge($__args, $more));
+            return $countPrefix(...\array_merge($__args, $more));
         };
     }
     $i = 0;
@@ -56,11 +56,11 @@ $countPrefix = function($p, $s = null) use (&$countPrefix) {
 };
 
 $_indexOf = function($just, $nothing = null, $x = null, $s = null) use (&$_indexOf) {
-    if (func_num_args() < 4) {
-        $__args = func_get_args();
+    if (\func_num_args() < 4) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_indexOf) {
 
-            return $_indexOf(...array_merge($__args, $more));
+            return $_indexOf(...\array_merge($__args, $more));
         };
     }
     $i = strpos($s, $x);
@@ -68,11 +68,11 @@ $_indexOf = function($just, $nothing = null, $x = null, $s = null) use (&$_index
 };
 
 $_indexOfStartingAt = function($just, $nothing = null, $x = null, $startAt = null, $s = null) use (&$_indexOfStartingAt) {
-    if (func_num_args() < 5) {
-        $__args = func_get_args();
+    if (\func_num_args() < 5) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_indexOfStartingAt) {
 
-            return $_indexOfStartingAt(...array_merge($__args, $more));
+            return $_indexOfStartingAt(...\array_merge($__args, $more));
         };
     }
     if ($startAt < 0 || $startAt > strlen($s)) return $nothing;
@@ -81,11 +81,11 @@ $_indexOfStartingAt = function($just, $nothing = null, $x = null, $startAt = nul
 };
 
 $_lastIndexOf = function($just, $nothing = null, $x = null, $s = null) use (&$_lastIndexOf) {
-    if (func_num_args() < 4) {
-        $__args = func_get_args();
+    if (\func_num_args() < 4) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_lastIndexOf) {
 
-            return $_lastIndexOf(...array_merge($__args, $more));
+            return $_lastIndexOf(...\array_merge($__args, $more));
         };
     }
     if ($x === "") {
@@ -96,14 +96,14 @@ $_lastIndexOf = function($just, $nothing = null, $x = null, $s = null) use (&$_l
 };
 
 $_lastIndexOfStartingAt = function($just, $nothing = null, $x = null, $startAt = null, $s = null) use (&$_lastIndexOfStartingAt) {
-    if (func_num_args() < 5) {
-        $__args = func_get_args();
+    if (\func_num_args() < 5) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_lastIndexOfStartingAt) {
 
-            return $_lastIndexOfStartingAt(...array_merge($__args, $more));
+            return $_lastIndexOfStartingAt(...\array_merge($__args, $more));
         };
     }
-    if ($x === "") return $just(min($startAt, strlen($s)));
+    if ($x === "") return $just(\min($startAt, strlen($s)));
     if ($startAt < 0) return $nothing;
     if ($startAt > strlen($s)) $startAt = strlen($s);
     $i = strrpos(substr($s, 0, $startAt + strlen($x)), $x);
@@ -118,51 +118,51 @@ $_lastIndexOfStartingAt = function($just, $nothing = null, $x = null, $startAt =
 };
 
 $take = function($n, $s = null) use (&$take) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$take) {
 
-            return $take(...array_merge($__args, $more));
+            return $take(...\array_merge($__args, $more));
         };
     }
     return substr($s, 0, $n);
 };
 
 $drop = function($n, $s = null) use (&$drop) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$drop) {
 
-            return $drop(...array_merge($__args, $more));
+            return $drop(...\array_merge($__args, $more));
         };
     }
     return substr($s, $n);
 };
 
 $slice = function($b, $e = null, $s = null) use (&$slice) {
-    if (func_num_args() < 3) {
-        $__args = func_get_args();
+    if (\func_num_args() < 3) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$slice) {
 
-            return $slice(...array_merge($__args, $more));
+            return $slice(...\array_merge($__args, $more));
         };
     }
     // JS slice with negative indices
     $len = strlen($s);
-    if ($b < 0) $b = max($len + $b, 0);
-    else $b = min($b, $len);
-    if ($e < 0) $e = max($len + $e, 0);
-    else $e = min($e, $len);
+    if ($b < 0) $b = \max($len + $b, 0);
+    else $b = \min($b, $len);
+    if ($e < 0) $e = \max($len + $e, 0);
+    else $e = \min($e, $len);
     if ($e <= $b) return "";
     return substr($s, $b, $e - $b);
 };
 
 $splitAt = function($i, $s = null) use (&$splitAt) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$splitAt) {
 
-            return $splitAt(...array_merge($__args, $more));
+            return $splitAt(...\array_merge($__args, $more));
         };
     }
     return (object)[

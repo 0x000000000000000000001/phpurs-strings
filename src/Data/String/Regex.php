@@ -5,10 +5,10 @@ $showRegexImpl = function($r) use (&$showRegexImpl) {
 };
 
 $regexImpl = function($left, $right = null, $s1 = null, $s2 = null) use (&$regexImpl) {
-    if (func_num_args() < 4) {
-        $__args = func_get_args();
+    if (\func_num_args() < 4) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$regexImpl) {
-            return $regexImpl(...array_merge($__args, $more));
+            return $regexImpl(...\array_merge($__args, $more));
         };
     }
     $pattern = '/' . $s1 . '/' . $s2;
@@ -38,20 +38,20 @@ $flagsImpl = function($r) use (&$flagsImpl) {
 };
 
 $test = function($r, $s = null) use (&$test) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$test) {
-            return $test(...array_merge($__args, $more));
+            return $test(...\array_merge($__args, $more));
         };
     }
     return preg_match($r->pcre, $s) === 1;
 };
 
 $_match = function($just, $nothing = null, $r = null, $s = null) use (&$_match) {
-    if (func_num_args() < 4) {
-        $__args = func_get_args();
+    if (\func_num_args() < 4) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_match) {
-            return $_match(...array_merge($__args, $more));
+            return $_match(...\array_merge($__args, $more));
         };
     }
     if (strpos($r->flags, 'g') !== false) {
@@ -77,10 +77,10 @@ $_match = function($just, $nothing = null, $r = null, $s = null) use (&$_match) 
 };
 
 $replace = function($r, $s1 = null, $s2 = null) use (&$replace) {
-    if (func_num_args() < 3) {
-        $__args = func_get_args();
+    if (\func_num_args() < 3) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$replace) {
-            return $replace(...array_merge($__args, $more));
+            return $replace(...\array_merge($__args, $more));
         };
     }
     $limit = strpos($r->flags, 'g') !== false ? -1 : 1;
@@ -90,17 +90,17 @@ $replace = function($r, $s1 = null, $s2 = null) use (&$replace) {
 };
 
 $_replaceBy = function($just, $nothing = null, $r = null, $f = null, $s = null) use (&$_replaceBy) {
-    if (func_num_args() < 5) {
-        $__args = func_get_args();
+    if (\func_num_args() < 5) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_replaceBy) {
-            return $_replaceBy(...array_merge($__args, $more));
+            return $_replaceBy(...\array_merge($__args, $more));
         };
     }
     $limit = strpos($r->flags, 'g') !== false ? -1 : 1;
     return preg_replace_callback($r->pcre, function($matches) use ($f, $just, $nothing) {
         $match = $matches[0];
         $groups = [];
-        for ($i = 1; $i < count($matches); $i++) {
+        for ($i = 1; $i < \count($matches); $i++) {
             $groups[] = (!isset($matches[$i]) || $matches[$i] === "") ? $nothing : $just($matches[$i]);
         }
         $fn = $f($match);
@@ -109,10 +109,10 @@ $_replaceBy = function($just, $nothing = null, $r = null, $f = null, $s = null) 
 };
 
 $_search = function($just, $nothing = null, $r = null, $s = null) use (&$_search) {
-    if (func_num_args() < 4) {
-        $__args = func_get_args();
+    if (\func_num_args() < 4) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_search) {
-            return $_search(...array_merge($__args, $more));
+            return $_search(...\array_merge($__args, $more));
         };
     }
     if (preg_match($r->pcre, $s, $matches, PREG_OFFSET_CAPTURE)) {
@@ -122,10 +122,10 @@ $_search = function($just, $nothing = null, $r = null, $s = null) use (&$_search
 };
 
 $split = function($r, $s = null) use (&$split) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$split) {
-            return $split(...array_merge($__args, $more));
+            return $split(...\array_merge($__args, $more));
         };
     }
     $limit = strpos($r->flags, 'g') !== false ? -1 : 2;

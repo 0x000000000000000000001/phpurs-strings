@@ -1,6 +1,6 @@
 <?php
 
-if (!function_exists('Data_String_CodePoints_utf8_ord')) {
+if (!\function_exists('Data_String_CodePoints_utf8_ord')) {
     function Data_String_CodePoints_utf8_ord($char) {
         if ($char === '') return 0;
         $c0 = ord($char[0]);
@@ -16,7 +16,7 @@ if (!function_exists('Data_String_CodePoints_utf8_ord')) {
     }
 }
 
-if (!function_exists('Data_String_CodePoints_utf8_chr')) {
+if (!\function_exists('Data_String_CodePoints_utf8_chr')) {
     function Data_String_CodePoints_utf8_chr($code) {
         if ($code < 0x80) {
             return chr($code);
@@ -31,22 +31,22 @@ if (!function_exists('Data_String_CodePoints_utf8_chr')) {
 }
 
 $_unsafeCodePointAt0 = function($fallback, $str = null) use (&$_unsafeCodePointAt0) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_unsafeCodePointAt0) {
 
-            return $_unsafeCodePointAt0(...array_merge($__args, $more));
+            return $_unsafeCodePointAt0(...\array_merge($__args, $more));
         };
     }
     return Data_String_CodePoints_utf8_ord(iconv_substr($str, 0, 1, 'UTF-8'));
 };
 
 $_codePointAt = function($fallback, $just = null, $nothing = null, $unsafeCodePointAt0 = null, $index = null, $str = null) use (&$_codePointAt) {
-    if (func_num_args() < 6) {
-        $__args = func_get_args();
+    if (\func_num_args() < 6) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_codePointAt) {
 
-            return $_codePointAt(...array_merge($__args, $more));
+            return $_codePointAt(...\array_merge($__args, $more));
         };
     }
     $len = iconv_strlen($str, 'UTF-8');
@@ -55,11 +55,11 @@ $_codePointAt = function($fallback, $just = null, $nothing = null, $unsafeCodePo
 };
 
 $_countPrefix = function($fallback, $unsafeCodePointAt0 = null, $pred = null, $str = null) use (&$_countPrefix) {
-    if (func_num_args() < 4) {
-        $__args = func_get_args();
+    if (\func_num_args() < 4) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_countPrefix) {
 
-            return $_countPrefix(...array_merge($__args, $more));
+            return $_countPrefix(...\array_merge($__args, $more));
         };
     }
     $len = iconv_strlen($str, 'UTF-8');
@@ -72,11 +72,11 @@ $_countPrefix = function($fallback, $unsafeCodePointAt0 = null, $pred = null, $s
 };
 
 $_fromCodePointArray = function($singleton, $cps = null) use (&$_fromCodePointArray) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_fromCodePointArray) {
 
-            return $_fromCodePointArray(...array_merge($__args, $more));
+            return $_fromCodePointArray(...\array_merge($__args, $more));
         };
     }
     $result = "";
@@ -87,33 +87,33 @@ $_fromCodePointArray = function($singleton, $cps = null) use (&$_fromCodePointAr
 };
 
 $_singleton = function($fallback, $cp = null) use (&$_singleton) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_singleton) {
 
-            return $_singleton(...array_merge($__args, $more));
+            return $_singleton(...\array_merge($__args, $more));
         };
     }
     return Data_String_CodePoints_utf8_chr($cp);
 };
 
 $_take = function($fallback, $n = null, $str = null) use (&$_take) {
-    if (func_num_args() < 3) {
-        $__args = func_get_args();
+    if (\func_num_args() < 3) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_take) {
 
-            return $_take(...array_merge($__args, $more));
+            return $_take(...\array_merge($__args, $more));
         };
     }
     return iconv_substr($str, 0, $n, 'UTF-8');
 };
 
 $_toCodePointArray = function($fallback, $unsafeCodePointAt0 = null, $str = null) use (&$_toCodePointArray) {
-    if (func_num_args() < 3) {
-        $__args = func_get_args();
+    if (\func_num_args() < 3) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_toCodePointArray) {
 
-            return $_toCodePointArray(...array_merge($__args, $more));
+            return $_toCodePointArray(...\array_merge($__args, $more));
         };
     }
     $len = iconv_strlen($str, 'UTF-8');

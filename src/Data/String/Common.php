@@ -1,11 +1,11 @@
 <?php
 
 $_localeCompare = function($lt, $eq = null, $gt = null, $s1 = null, $s2 = null) use (&$_localeCompare) {
-    if (func_num_args() < 5) {
-        $__args = func_get_args();
+    if (\func_num_args() < 5) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$_localeCompare) {
 
-            return $_localeCompare(...array_merge($__args, $more));
+            return $_localeCompare(...\array_merge($__args, $more));
         };
     }
     $result = strcmp($s1, $s2);
@@ -13,11 +13,11 @@ $_localeCompare = function($lt, $eq = null, $gt = null, $s1 = null, $s2 = null) 
 };
 
 $replace = function($s1, $s2 = null, $s3 = null) use (&$replace) {
-    if (func_num_args() < 3) {
-        $__args = func_get_args();
+    if (\func_num_args() < 3) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$replace) {
 
-            return $replace(...array_merge($__args, $more));
+            return $replace(...\array_merge($__args, $more));
         };
     }
     $pos = strpos($s3, $s1);
@@ -28,22 +28,22 @@ $replace = function($s1, $s2 = null, $s3 = null) use (&$replace) {
 };
 
 $replaceAll = function($s1, $s2 = null, $s3 = null) use (&$replaceAll) {
-    if (func_num_args() < 3) {
-        $__args = func_get_args();
+    if (\func_num_args() < 3) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$replaceAll) {
 
-            return $replaceAll(...array_merge($__args, $more));
+            return $replaceAll(...\array_merge($__args, $more));
         };
     }
     return str_replace($s1, $s2, $s3);
 };
 
 $split = function($sep, $s = null) use (&$split) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$split) {
 
-            return $split(...array_merge($__args, $more));
+            return $split(...\array_merge($__args, $more));
         };
     }
     if ($sep === "") {
@@ -65,11 +65,11 @@ $trim = function($s) use (&$trim) {
 };
 
 $joinWith = function($s, $xs = null) use (&$joinWith) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$joinWith) {
 
-            return $joinWith(...array_merge($__args, $more));
+            return $joinWith(...\array_merge($__args, $more));
         };
     }
     return implode($s, $xs);
