@@ -1,4 +1,4 @@
-# purescript-strings
+# phpurs-strings
 
 [![Latest release](http://img.shields.io/github/release/purescript/purescript-strings.svg)](https://github.com/purescript/purescript-strings/releases)
 [![Build status](https://github.com/purescript/purescript-strings/workflows/CI/badge.svg?branch=master)](https://github.com/purescript/purescript-strings/actions?query=workflow%3ACI+branch%3Amaster)
