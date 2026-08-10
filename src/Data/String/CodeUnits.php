@@ -54,8 +54,8 @@ $_lastIndexOf = function($just, $nothing, $x, $s) use (&$_lastIndexOf) {
 };
 
 $_lastIndexOfStartingAt = function($just, $nothing, $x, $startAt, $s) use (&$_lastIndexOfStartingAt) {
+    if ($startAt < 0) $startAt = 0;
     if ($x === "") return $just(\min($startAt, strlen($s)));
-    if ($startAt < 0) return $nothing;
     if ($startAt > strlen($s)) $startAt = strlen($s);
     $i = strrpos(substr($s, 0, $startAt + strlen($x)), $x);
     // JS lastIndexOf searches backwards from startAt. PHP strrpos searches the whole string up to offset, or with negative offset.
@@ -69,10 +69,12 @@ $_lastIndexOfStartingAt = function($just, $nothing, $x, $startAt, $s) use (&$_la
 };
 
 $take = function($n, $s) use (&$take) {
+    if ($n <= 0) return "";
     return substr($s, 0, $n);
 };
 
 $drop = function($n, $s) use (&$drop) {
+    if ($n < 0) $n = 0;
     return substr($s, $n);
 };
 
@@ -88,6 +90,7 @@ $slice = function($b, $e, $s) use (&$slice) {
 };
 
 $splitAt = function($i, $s) use (&$splitAt) {
+    if ($i < 0) $i = 0;
     return (object)[
         "before" => substr($s, 0, $i),
         "after" => substr($s, $i)

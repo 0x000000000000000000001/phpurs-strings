@@ -30,24 +30,50 @@ if (!\function_exists('Data_String_CodePoints_utf8_chr')) {
     }
 }
 
+if (!\function_exists('Data_String_CodePoints_next_char_len')) {
+    function Data_String_CodePoints_next_char_len($str, $offset) {
+        if ($offset >= strlen($str)) return 0;
+        $c0 = ord($str[$offset]);
+        if ($c0 < 0x80) return 1;
+        if ($c0 < 0xE0) return 2;
+        if ($c0 < 0xF0) return 3;
+        return 4;
+    }
+}
+
 $_unsafeCodePointAt0 = function($fallback, $str) use (&$_unsafeCodePointAt0) {
-    return Data_String_CodePoints_utf8_ord(iconv_substr($str, 0, 1, 'UTF-8'));
+    return Data_String_CodePoints_utf8_ord($str);
 };
 
 $_codePointAt = function($fallback, $just, $nothing, $unsafeCodePointAt0, $index, $str) use (&$_codePointAt) {
-    $len = iconv_strlen($str, 'UTF-8');
-    if ($index < 0 || $index >= $len) return $nothing;
-    return $just($unsafeCodePointAt0(iconv_substr($str, $index, 1, 'UTF-8')));
+    if ($index < 0) return $nothing;
+    $len = strlen($str);
+    $offset = 0;
+    $cpIndex = 0;
+    while ($offset < $len) {
+        $charLen = Data_String_CodePoints_next_char_len($str, $offset);
+        if ($cpIndex === $index) {
+            return $just($unsafeCodePointAt0(substr($str, $offset, $charLen)));
+        }
+        $offset += $charLen;
+        $cpIndex++;
+    }
+    return $nothing;
 };
 
 $_countPrefix = function($fallback, $unsafeCodePointAt0, $pred, $str) use (&$_countPrefix) {
-    $len = iconv_strlen($str, 'UTF-8');
-    for ($i = 0; $i < $len; $i++) {
-        $char = iconv_substr($str, $i, 1, 'UTF-8');
+    $len = strlen($str);
+    $offset = 0;
+    $cpIndex = 0;
+    while ($offset < $len) {
+        $charLen = Data_String_CodePoints_next_char_len($str, $offset);
+        $char = substr($str, $offset, $charLen);
         $cp = $unsafeCodePointAt0($char);
-        if (!$pred($cp)) return $i;
+        if (!$pred($cp)) return $cpIndex;
+        $offset += $charLen;
+        $cpIndex++;
     }
-    return $len;
+    return $cpIndex;
 };
 
 $_fromCodePointArray = function($singleton, $cps) use (&$_fromCodePointArray) {
@@ -63,14 +89,26 @@ $_singleton = function($fallback, $cp) use (&$_singleton) {
 };
 
 $_take = function($fallback, $n, $str) use (&$_take) {
-    return iconv_substr($str, 0, $n, 'UTF-8');
+    if ($n <= 0) return "";
+    $len = strlen($str);
+    $offset = 0;
+    $cpIndex = 0;
+    while ($offset < $len && $cpIndex < $n) {
+        $charLen = Data_String_CodePoints_next_char_len($str, $offset);
+        $offset += $charLen;
+        $cpIndex++;
+    }
+    return substr($str, 0, $offset);
 };
 
 $_toCodePointArray = function($fallback, $unsafeCodePointAt0, $str) use (&$_toCodePointArray) {
-    $len = iconv_strlen($str, 'UTF-8');
+    $len = strlen($str);
+    $offset = 0;
     $arr = [];
-    for ($i = 0; $i < $len; $i++) {
-        $arr[] = $unsafeCodePointAt0(iconv_substr($str, $i, 1, 'UTF-8'));
+    while ($offset < $len) {
+        $charLen = Data_String_CodePoints_next_char_len($str, $offset);
+        $arr[] = $unsafeCodePointAt0(substr($str, $offset, $charLen));
+        $offset += $charLen;
     }
     return $arr;
 };

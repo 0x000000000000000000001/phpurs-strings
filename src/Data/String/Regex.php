@@ -37,20 +37,22 @@ $test = function($r, $s) use (&$test) {
 
 $_match = function($just, $nothing, $r, $s) use (&$_match) {
     if (strpos($r->flags, 'g') !== false) {
-        $matched = preg_match_all($r->pcre, $s, $matches);
+        $matched = preg_match_all($r->pcre, $s, $matches, PREG_UNMATCHED_AS_NULL);
         if ($matched) {
             $res = [];
             foreach ($matches[0] as $m) {
-                $res[] = $m === "" ? $nothing : $just($m);
+                $res[] = $m === null ? $nothing : $just($m);
             }
             return $just($res);
         }
     } else {
-        $matched = preg_match($r->pcre, $s, $matches);
+        $matched = preg_match($r->pcre, $s, $matches, PREG_UNMATCHED_AS_NULL);
         if ($matched) {
             $res = [];
-            foreach ($matches as $m) {
-                $res[] = $m === "" ? $nothing : $just($m);
+            $i = 0;
+            while (\array_key_exists($i, $matches)) {
+                $res[] = $matches[$i] === null ? $nothing : $just($matches[$i]);
+                $i++;
             }
             return $just($res);
         }
@@ -70,12 +72,14 @@ $_replaceBy = function($just, $nothing, $r, $f, $s) use (&$_replaceBy) {
     return preg_replace_callback($r->pcre, function($matches) use ($f, $just, $nothing) {
         $match = $matches[0];
         $groups = [];
-        for ($i = 1; $i < \count($matches); $i++) {
-            $groups[] = (!isset($matches[$i]) || $matches[$i] === "") ? $nothing : $just($matches[$i]);
+        $i = 1;
+        while (\array_key_exists($i, $matches)) {
+            $groups[] = $matches[$i] === null ? $nothing : $just($matches[$i]);
+            $i++;
         }
         $fn = $f($match);
         return $fn($groups);
-    }, $s, $limit);
+    }, $s, $limit, $count, PREG_UNMATCHED_AS_NULL);
 };
 
 $_search = function($just, $nothing, $r, $s) use (&$_search) {
@@ -86,8 +90,10 @@ $_search = function($just, $nothing, $r, $s) use (&$_search) {
 };
 
 $split = function($r, $s) use (&$split) {
-    $limit = strpos($r->flags, 'g') !== false ? -1 : 2;
-    return preg_split($r->pcre, $s, $limit);
+    if ($r->source === "") {
+        return preg_split($r->pcre, $s, -1, PREG_SPLIT_NO_EMPTY);
+    }
+    return preg_split($r->pcre, $s);
 };
 
 $exports['showRegexImpl'] = $showRegexImpl;
